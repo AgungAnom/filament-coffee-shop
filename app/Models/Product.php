@@ -12,6 +12,7 @@ class Product extends Model
         'description',
         'price',
         'image',
+        'product_category_id',
     ];
 
     protected static function booted(): void
@@ -21,5 +22,10 @@ class Product extends Model
                 Storage::disk('public')->delete($product->image);
             }
         });
+    }
+
+    public function productCategory()
+    {
+        return $this->belongsTo(ProductCategory::class);
     }
 }

@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -32,6 +33,11 @@ class ProductResource extends Resource
                     ->label('Product Name')
                     ->required()
                     ->maxLength(255),
+
+                Select::make('product_category_id')
+                    ->label('Product Category')
+                    ->relationship('productCategory', 'name')
+                    ->required(),
 
                 Textarea::make('description')
                     ->label('Description'),
@@ -58,6 +64,9 @@ class ProductResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label('Product Name'),
+
+                TextColumn::make('productCategory.name')
+                    ->label('Product Category'),
 
                 TextColumn::make('description')
                     ->label('Description'),
